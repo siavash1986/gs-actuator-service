@@ -37,31 +37,11 @@ the same as in {gs-rest-service}[Building a RESTful Web Service]. You need need 
 that guide to take advantage of this one, although it might be interesting to compare the
 results.
 
-=== What You need
+== Start by checking out the lab code
 
-:java_version: 1.8
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/prereq_editor_jdk_buildtools.adoc[]
+Check out https://github.com/siavash1986/gs-actuator-service[gs-actuator-service] repository to your local development environment and open initial folder
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/how_to_complete_this_guide.adoc[]
-
-[[scratch]]
-== Starting with Spring Initializr
-
-For all Spring applications, you should start with the https://start.spring.io[Spring
-Initializr]. The Initializr offers a fast way to pull in all the dependencies you need for
-an application and does a lot of the set up for you. This example needs the Spring Web
-and Spring Boot Actuator dependencies.
-
-The following listing shows the `pom.xml` file created when you choose Maven:
-
-====
-[src,xml]
-----
-include::complete/pom.xml[]
-----
-====
-
-The following listing shows the `build.gradle` file created when you choose Gradle:
+The following listing shows the build.gradle file located in the initial folder:
 
 ====
 [src,groovy]
@@ -112,11 +92,7 @@ $ curl localhost:8080
 ====
 
 The output of the preceding command indicates that the server is running but that you have
-not defined any business endpoints yet. Instead of a default container-generated HTML
-error response, you see a generic JSON response from the Actuator `/error` endpoint. You
-can see in the console logs from the server startup which endpoints are provided out of
-the box. You can try a few of those endpoints, including the `/health` endpoint. The
-following example shows how to do so:
+not defined any business endpoints yet.
 
 ====
 [source,bash]
@@ -194,13 +170,6 @@ https://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframew
 will handle the conversion of a `Greeting` object to JSON if the request's `Accept` header
 specifies that JSON should be returned.
 
-NOTE: How do you know Jackson 2 is on the classpath? Either run ` mvn dependency:tree` or
-`./gradlew dependencies`, and you get a detailed tree of dependencies that includes
-Jackson 2.x. You can also see that it comes from
-https://github.com/spring-projects/spring-boot/tree/master/spring-boot-project/spring-boot-starters/spring-boot-starter-json[/spring-boot-starter-json],
- itself imported by
- https://github.com/spring-projects/spring-boot/blob/master/spring-boot-starters/spring-boot-starter-web/pom.xml[spring-boot-starter-web].
-
 == Run the Application
 
 You can run the application from a custom main class or directly from one of the
@@ -216,20 +185,6 @@ shows the application class:
 include::complete/src/main/java/com/example/actuatorservice/HelloWorldApplication.java[]
 ----
 ====
-
-In a conventional Spring MVC application, you would add `@EnableWebMvc` to turn on key
-behaviors, including configuration of a `DispatcherServlet`. But Spring Boot turns on this
-annotation automatically when it detects *spring-webmvc* on your classpath. This sets you
-up to build a controller in an upcoming step.
-
-The `@SpringBootApplication` annotation also brings in a
-https://docs.spring.io/spring/docs/{spring_version}/javadoc-api/org/springframework/context/annotation/ComponentScan.html[`@ComponentScan`]
-annotation, which tells Spring to scan the `com.example.actuatorservice` package for those
-controllers (along with any other annotated component classes).
-
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_mainhead.adoc[]
-
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_with_both.adoc[]
 
 Once the service is running (because you ran `spring-boot:run` in a terminal), you can test it by running the following command in a separate terminal:
 
@@ -280,37 +235,7 @@ $ curl localhost:9001/actuator/health
 ----
 ====
 
-== Test Your Application
-
-To check whether your application works, you should write unit and integration tests for
-your application.
-The test class in
-`src/test/java/com/example/actuatorservice/HelloWorldApplicationTests.java`
-ensures that
-
-* Your controller is responsive.
-* Your management endpoint is responsive.
-
-Note that the tests start the application on a random port.
-The following listing shows the test class:
-
-====
-[source,java,tabsize=2]
-----
-include::complete/src/test/java/com/example/actuatorservice/HelloWorldApplicationTests.java[]
-----
-====
-
 == Summary
 
 Congratulations! You have just developed a simple RESTful service by using Spring, and you
 added some useful built-in services with Spring Boot Actuator.
-
-== See Also
-
-The following guides may also be helpful:
-
-* https://spring.io/guides/gs/spring-boot/[Building an Application with Spring Boot]
-* https://spring.io/guides/gs/serving-web-content/[Serving Web Content with Spring MVC]
-
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
